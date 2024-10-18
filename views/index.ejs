@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Pokedex</title>
+</head>
+<body>
+    <h1>Pokédex</h1>
+    <ul>
+        <% pokemons.foreach(function(pokemon){ %>
+            <li>
+                <a href="/pokemon/<%= pokemon.id %>"><%= pokemon.nome %> 
+</a> - <%= pokemon.tipo %>
+            </li>
+            <% });%>
+    </ul>
+</body>
+</html>

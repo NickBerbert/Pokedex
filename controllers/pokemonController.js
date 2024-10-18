@@ -1,12 +1,12 @@
 const pokemonModel = require('../models/pokemonModel');
 
 const getAllPokemons = (req, res) => {
-    const pokemon = pokemonModel.getPokemons();
+    const pokemons = pokemonModel.getPokemons();
     res.render('index', {pokemons});
 };
 
 const getPokemon = (req, res) => {
-    const pokemo = pokemonModel.getPokemonsById(req.params.id);
+    const pokemon = pokemonModel.getPokemonsById(req.params.id);
     if(pokemon){
         res.render('pokemon', {pokemon});
     }else{
