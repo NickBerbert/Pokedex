@@ -8,6 +8,11 @@
     <title>Document</title>
 </head>
 <body>
-    pokemonController.getAllPokemons
+    <h1>Lista de Pokémons</h1>
+    <ul>
+        <% pokemons.forEach(pokemon => { %>
+            <li><strong>ID:</strong> <%= pokemon.id %>, <strong>Nome:</strong> <%= pokemon.nome %>, <strong>Tipo:</strong> <%= pokemon.tipo %></li>
+        <% }); %>
+    </ul>
 </body>
 </html>
