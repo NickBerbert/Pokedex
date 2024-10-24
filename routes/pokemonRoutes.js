@@ -4,5 +4,8 @@ const pokemonController = require('../controllers/pokemonController');
 
 router.get('/', pokemonController.getAllPokemons);
 router.get('/pokemon/:id', pokemonController.getPokemon);
+router.get('/add', pokemonController.getAdd);
+
+
 
 module.exports = router;

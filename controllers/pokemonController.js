@@ -18,4 +18,11 @@ const getPokemon = (req, res) => {
 
 };
 
-module.exports = {getAllPokemons, getPokemon}
+const getAdd = (req, res) => {
+    
+    res.render('add');
+};
+
+
+
+module.exports = {getAllPokemons, getPokemon, getAdd}
