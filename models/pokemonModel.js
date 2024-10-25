@@ -8,7 +8,15 @@ const pokemons = [
 
 const getPokemons = () =>pokemons;
 const getPokemonsById = (id) => pokemons.find(p => p.id === parseInt(id));
-const createPokemon = (nome, tipo) => pokemons.push(pokemons.length+1, nome, tipo)
+const createPokemon = (nome, tipo) => {
+    const novoPokemon = {
+        id: pokemons.length + 1,
+        nome,
+        tipo
+    };
+    pokemons.push(novoPokemon);
+    return novoPokemon;
+};
 
 module.exports = {getPokemons, getPokemonsById, createPokemon};
     

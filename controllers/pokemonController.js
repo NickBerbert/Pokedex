@@ -5,6 +5,12 @@ const getAllPokemons = (req, res) => {
     res.render('index', {pokemons});
 };
 
+const createPokemon = (req,res) => {
+    const { nome, tipo } = req.body;
+    const novoPokemon = pokemonModel.createPokemon(nome, tipo);
+    res.redirect('/')
+}
+
 const getPokemon = (req, res) => {
     const pokemon = pokemonModel.getPokemonsById(req.params.id);
     if(pokemon){
@@ -19,10 +25,9 @@ const getPokemon = (req, res) => {
 };
 
 const getAdd = (req, res) => {
-    
     res.render('add');
 };
 
 
 
-module.exports = {getAllPokemons, getPokemon, getAdd}
+module.exports = {getAllPokemons, getPokemon, getAdd, createPokemon}
