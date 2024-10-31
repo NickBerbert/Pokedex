@@ -1,17 +1,14 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const pokemonRoutes = require('./routes/pokemonRoutes')
+const session = require('express-session');
+const pokemonRoutes = require('./routes/pokemonRoutes');
 
 const app = express();
-app.set('view engine' , 'ejs');
-app.set('views', './views');
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static('public'));
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: true }));
+app.use(session({ secret: 'your-secret-key', resave: false, saveUninitialized: true }));
 
 app.use('/', pokemonRoutes);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log('Server is running on http://localhost:${PORT}');
-
+app.listen(3000, () => {
+    console.log('Servidor rodando na porta 3000');
 });

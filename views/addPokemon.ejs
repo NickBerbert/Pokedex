@@ -5,8 +5,8 @@
     <title>Adicionar Pokémon</title>
 </head>
 <body>
-    <h1>Adicionar Pokémon</h1>
-    <form action="/addPokemon" method="post">
+    <h1>Adicionar Pokémon para <%= treinador.nome %></h1>
+    <form action="/treinadores/<%= treinador.id %>/addPokemon" method="post">
         <label for="nome">Nome do Pokémon:</label>
         <input type="text" id="nome" name="nome" required>
         <br><br>
@@ -16,6 +16,6 @@
         <input type="hidden" name="treinadorId" value="<%= treinador.id %>">
         <input type="submit" value="Adicionar Pokémon">
     </form>
-    <a href="/treinadores">Voltar</a>
+    <a href="/treinadores/<%= treinador.id %>">Voltar para a Pokédex</a>
 </body>
 </html>

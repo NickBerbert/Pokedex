@@ -5,16 +5,16 @@
     <title>Pokedex</title>
 </head>
 <body>
-    <h1>Pokédex</h1>    
-    <a href="/add">Adicionar</a>
+    <h1>Pokédex</h1>
+    <a href="/addTreinador">Adicionar Treinador</a>
+    <br>
+    <a href="/treinadores">Ver Treinadores</a>
     <ul>
-        <% pokemons.forEach(function(pokemon){ %>
+        <% treinadores.forEach(function(treinador) { %>
             <li>
-                <a href="/pokemon/<%= pokemon.id %>"><%= pokemon.nome %> 
-</a> - <%= pokemon.tipo %>
+                <a href="/treinadores/<%= treinador.id %>"><%= treinador.nome %></a>
             </li>
-            <% });%>
+        <% }); %>
     </ul>
-    
 </body>
 </html>

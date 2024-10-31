@@ -2,62 +2,58 @@ const pokemonModel = require('../models/pokemonModel');
 
 const getAllPokemons = (req, res) => {
     const pokemons = pokemonModel.getPokemons();
-    res.render('index', {pokemons});
+    const treinadores = pokemonModel.getTreinadores(); 
+    res.render('index', { pokemons, treinadores });
 };
 
-const createPokemon = (req,res) => {
-    const { nome, tipo } = req.body;
+const createPokemon = (req, res) => {
+    const { nome, tipo, treinadorId } = req.body; // Recebe o ID do treinador
     const novoPokemon = pokemonModel.createPokemon(nome, tipo);
-    res.redirect('/')
-}
+
+    // Adiciona o Pokémon à Pokédex do treinador
+    const treinador = pokemonModel.getTreinadorById(treinadorId);
+    if (treinador) {
+        treinador.pokemons.push(novoPokemon.id); // Associa o Pokémon ao treinador
+    }
+
+    res.redirect(`/treinadores/${treinadorId}`); // Redireciona para a Pokédex do treinador
+};
 
 const getAllTreinadores = (req, res) => {
     const treinadores = pokemonModel.getTreinadores();
     res.render('treinadores', { treinadores });
 };
 
-
 const createTreinador = (req, res) => {
-    const { nome, idade } = req.body;
-    const novoTreinador = pokemonModel.createTreinador(nome, idade);
-    if (novoTreinador) {
-        res.redirect('/treinadores'); 
-    } else {
-        res.status(400).send('Erro ao criar o Treinador');
+    const { nome } = req.body; // Removido a idade
+    const novoTreinador = pokemonModel.createTreinador(nome);
+    req.session.successMessage = 'Treinador criado com sucesso!';
+    res.redirect('/treinadores');
+};
+
+const getTreinadorPokedex = (req, res) => {
+    const treinador = pokemonModel.getTreinadorById(req.params.id);
+    let pokemons = [];
+    if (treinador && treinador.pokemons) {
+        pokemons = treinador.pokemons.map(pokemonId => pokemonModel.getPokemonsById(pokemonId));
     }
-};
-const getPokemon = (req, res) => {
-    const pokemon = pokemonModel.getPokemonsById(req.params.id);
-    if(pokemon){
-        res.render('pokemon', {pokemon});
-    }else{
-        res.status(404).send('Pokemon não encontrado');
-    }
-
-
-
-
+    res.render('pokedexTreinador', { treinador, pokemons });
 };
 
-const getAdd = (req, res) => {
-    res.render('add');
-};
-
-const getCadastro = (req,res) => {
-    res.render('cadastro');
-}
-
-const getTreinador = (req, res) => {
+const getAddPokemon = (req, res) => {
     const treinador = pokemonModel.getTreinadorById(req.params.id);
     if (treinador) {
-        res.render('treinador', { treinador }); 
+        res.render('addPokemon', { treinador });
     } else {
         res.status(404).send('Treinador não encontrado');
     }
 };
 
-const getAddTreinador = (req, res) => {
-    res.render('addTreinador'); // Renderiza a view para adicionar um treinador
+module.exports = {
+    getAllPokemons,
+    createPokemon,
+    getAllTreinadores,
+    createTreinador,
+    getTreinadorPokedex,
+    getAddPokemon
 };
-
-module.exports = {getAllPokemons, getPokemon, getAdd, createPokemon, getCadastro, getAddTreinador, getTreinador, getAllTreinadores, createTreinador}
